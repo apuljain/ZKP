@@ -4,11 +4,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cryptopp>
-#include <cryptopp/Integer>
+#include <cryptopp/integer.h>
 
 using namespace std;
-using namespace Cryptopp;
+using namespace CryptoPP;
 
 class DiscreteLogarithmVerifier
 {
@@ -16,7 +15,7 @@ class DiscreteLogarithmVerifier
 
 	//declare set generators here
 	vector<Integer> _generators;
-	
+
 	//declare p, q
 	Integer _q, _p;
 
@@ -25,14 +24,14 @@ class DiscreteLogarithmVerifier
 
 	//set no. of members
 	unsigned int _num_members;
-	
+
 	public:
 
 	DiscreteLogarithmVerifier(int n, vector<Integer> public_keys_in,
-			  	  vector<Integer> generators,
-				  Integer p_in, Integer q_in);
+                              vector<Integer> generators,
+                              Integer p_in, Integer q_in);
 
-	/*Verifies Proof*/	
+	//Verifies Proof
 	bool VerifyProof(const Integer &Hash, vector<Integer> &c, vector<Integer> &r);
 };
 
