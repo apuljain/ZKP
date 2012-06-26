@@ -29,11 +29,11 @@ void GetGroupParameters(Integer &g, Integer &p, Integer &q)
 	cout << "G (" << std::dec << count << "): " << std::dec << g << endl;
 	#endif
 
-
 	Integer v = ModularExponentiation(g, q, p);
 	if(v != Integer::One())
 	{
 		cout << "Failed to verify order of the subgroup" << endl;
+        exit(1);
 	}
 }
 
@@ -53,15 +53,16 @@ string HashCalculate(string input_string)
 	string output;
 
 	//calculate hash
-	hash.CalculateDigest(digest, (const byte *)input_string.c_str(), input_string.size());
-	
+	hash.CalculateDigest(digest, (const byte *)input_string.c_str(),
+                         input_string.size());
+
 	//encode in Hex
 	CryptoPP::HexEncoder encoder;
 	CryptoPP::StringSink *SS = new CryptoPP::StringSink(output);
 	encoder.Attach(SS);
 	encoder.Put(digest, sizeof(digest));
 	encoder.MessageEnd();
-	
+
 	//prepend 0x
 	output = "0x" + output;
 	return output;
@@ -71,7 +72,7 @@ string HashCalculate(string input_string)
 void PrintVector(vector<Integer> v)
 {
 	for(vector<Integer>::iterator itr = v.begin(); itr != v.end(); itr++)
-		cout<<*itr<<" ";	
+		cout<<*itr<<" ";
 
 	cout<<endl;
 }
@@ -92,7 +93,7 @@ string GenerateString(vector<Integer> v)
 
 /*Function to compute input string for hash function*/
 string ComputeHashString(vector<Integer> generators, vector<Integer> public_keys,
-			 vector<Integer> T)
+                         vector<Integer> T)
 {
 	string output;
 	unsigned int i = 0;
@@ -104,12 +105,11 @@ string ComputeHashString(vector<Integer> generators, vector<Integer> public_keys
 	}
 
 	//append t1, t2, ........ tn
-	
+
 	for(vector<Integer>::iterator itr = T.begin(); itr != T.end(); itr++)
 	{
 		output = output + IntegerToString(*itr);
-	}	
-	
+	}
+
 	return output;
 }
-
