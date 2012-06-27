@@ -1,0 +1,10 @@
+June 26 2012
+==============
+-Restructured code for ZKP one-out-of-n.
+-Class definition and declaration separated.
+-Dependent library includes moved to .hpp files.
+-Removed linked list and replaced with vectors.
+-Improved API - separate class for Prover and Verifier.
+-Support for identity to specify which key-pair is known.
+-Updated indentation.
+
